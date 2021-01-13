@@ -76,9 +76,7 @@ would be encoded as
 template<typename T> class crangeset
   {
   private:
-    typedef std::vector<T> rtype;
-    rtype r;
-
+    std::vector<T> r;
     struct abscomp
       {
       bool operator()(const T &a, const T &b)
@@ -377,7 +375,7 @@ template<typename T> class crangeset
     /*! Removes all rangeset entries. */
     void clear() { r.clear(); }
     bool empty() const { return r.empty(); }
-    const rtype &data() const { return r; }
+    const std::vector<T> &data() const { return r; }
     void checkConsistency() const
       {
       using namespace std;
@@ -386,7 +384,7 @@ template<typename T> class crangeset
       for (tsize i=1; i<r.size(); ++i)
         planck_assert(abs(r[i])>abs(r[i-1]+1),"inconsistent entries");
       }
-    void setData (const rtype &inp)
+    void setData (const std::vector<T> &inp)
       {
       r=inp;
       checkConsistency();

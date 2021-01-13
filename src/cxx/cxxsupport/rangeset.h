@@ -44,10 +44,9 @@
 template<typename T> class rangeset
   {
   private:
-    typedef std::vector<T> rtype;
-    typedef typename rtype::iterator iterator;
-    typedef typename rtype::const_iterator c_iterator;
-    rtype r;
+    typedef typename std::vector<T>::iterator iterator;
+    typedef typename std::vector<T>::const_iterator c_iterator;
+    std::vector<T> r;
 
     /*! Returns the index of the last number in \c r which is <= \a val.
         If \a val is smaller than all numbers in \c r, returns -1. */
@@ -228,14 +227,14 @@ template<typename T> class rangeset
     tsize size() const { return nranges(); }
     bool empty() const { return r.empty(); }
     /*! Returns the current vector of ranges. */
-    const rtype &data() const { return r; }
+    const std::vector<T> &data() const { return r; }
     void checkConsistency() const
       {
       planck_assert((r.size()&1)==0,"invalid number of entries");
       for (tsize i=1; i<r.size(); ++i)
         planck_assert(r[i]>r[i-1],"inconsistent entries");
       }
-    void setData (const rtype &inp)
+    void setData (const std::vector<T> &inp)
       {
       r=inp;
       checkConsistency();
